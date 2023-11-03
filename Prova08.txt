@@ -1,0 +1,64 @@
+produtos = []
+
+def adicionar_produto():
+    nome = input("Nome do produto: ")
+    quantidade = int(input("Quantidade: "))
+    valor_unitario = float(input("Valor unitário: "))
+    total = quantidade * valor_unitario
+    produtos.append({"produto": nome, "quantidade": quantidade, "valor": valor_unitario, "total": total})
+    print(f"{nome} foi adicionado à lista.")
+
+def ver_lista_de_produtos():
+    if not produtos:
+        print("A lista de compras está vazia.")
+        return
+    total_geral = 0
+    print("Lista de compras:")
+    for produto in produtos:
+        print(f"Produto: {produto['produto']}, Quantidade: {produto['quantidade']}, Valor Unitário: R${produto['valor']:.2f}, Total: R${produto['total']:.2f}")
+        total_geral += produto['total']
+    print(f"Valor total de todos os produtos: R${total_geral:.2f}")
+
+def atualizar_produto():
+    nome = input("Digite o nome do produto que deseja atualizar: ")
+    for produto in produtos:
+        if produto['produto'] == nome:
+            quantidade = int(input("Nova quantidade: "))
+            valor_unitario = float(input("Novo valor unitário: "))
+            produto['quantidade'] = quantidade
+            produto['valor'] = valor_unitario
+            produto['total'] = quantidade * valor_unitario
+            print(f"As informações de {nome} foram atualizadas.")
+            return
+    print(f"Produto {nome} não encontrado na lista.")
+
+def remover_produto():
+    nome = input("Digite o nome do produto que deseja remover: ")
+    for produto in produtos:
+        if produto['produto'] == nome:
+            produtos.remove(produto)
+            print(f"{nome} foi removido da lista.")
+            return
+    print(f"Produto {nome} não encontrado na lista.")
+
+while True:
+    print("\nOpções:")
+    print("1. Adicionar produto")
+    print("2. Ver lista de produtos")
+    print("3. Atualizar produto")
+    print("4. Remover produto")
+    print("5. Encerrar programa")
+    opcao = input("Escolha uma opção: ")
+
+    if opcao == "1":
+        adicionar_produto()
+    elif opcao == "2":
+        ver_lista_de_produtos()
+    elif opcao == "3":
+        atualizar_produto()
+    elif opcao == "4":
+        remover_produto()
+    elif opcao == "5":
+        break
+    else:
+        print("Opção inválida. Tente novamente.")
